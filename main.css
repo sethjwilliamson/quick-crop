@@ -262,6 +262,13 @@
   }
 }
 
+.col-md-3 {
+    max-width:100%
+}
+.col-md-9 {
+    max-width:100%
+}
+
 @media (min-width: 1921px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
       position: absolute;
@@ -284,11 +291,5 @@
     .preview-lg {
         height: 300px;
         width: 1600px;
-    }
-    .col-md-3 {
-        max-width:100%
-    }
-    .col-md-9 {
-        max-width:100%
     }
 }
