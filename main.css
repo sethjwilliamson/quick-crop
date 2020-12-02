@@ -116,6 +116,11 @@
       min-height: 497px;
     }
   }
+  @media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+      max-width: 960px;
+  }
+
   
   .img-container > img {
     max-width: 100%;
@@ -255,4 +260,35 @@
   .docs-cropped .modal-body > canvas {
     max-width: 100%;
   }
-  
+}
+
+@media (min-width: 1921px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+      position: absolute;
+      max-width: 1880px;
+      max-height: 1040px;
+    }
+    .img-container {
+        max-height: 1040px;
+    }
+    #options {
+        position: fixed;
+        top:0;
+        right:0;
+        width: calc(100% - 1920px);
+    }
+    #row-under-container {
+        position: unset;
+    }
+      
+    .preview-lg {
+        height: 300px;
+        width: 1600px;
+    }
+    .col-md-3 {
+        max-width:100%
+    }
+    .col-md-9 {
+        max-width:100%
+    }
+}
