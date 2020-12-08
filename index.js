@@ -15,7 +15,8 @@ window.onload = function () {
     var dataHeight = document.getElementById('dataHeight');
     var dataWidth = document.getElementById('dataWidth');
     var dataRotate = document.getElementById('dataRotate');
-    var dataScaleX = 1
+    var dataScaleX = document.getElementById('dataScaleX');
+
     console.log(document.getElementById('aspect1'));
     var options = {
         aspectRatio: document.getElementById('aspect1').value / document.getElementById('aspect2').value,
@@ -56,6 +57,7 @@ window.onload = function () {
     var fileName;
     var arrayCroppedImages = [];
     var arrayUncroppedImages = [];
+    var scaleX = 1;
 
     // Tooltip
     $('[data-toggle="tooltip"]').tooltip();
@@ -165,10 +167,6 @@ window.onload = function () {
                 }
             }
 
-            
-            console.log("TEST");
-
-
             switch (data.method) {
                 case 'rotate':
                     if (cropped) {
@@ -193,6 +191,9 @@ window.onload = function () {
                     }
 
                     break;
+
+                case 'download':
+                    return download();
             }
 
             if (data.method == "setAspectRatio") {
@@ -273,8 +274,8 @@ window.onload = function () {
             case 70:
                 e.preventDefault();
                 console.log(cropper)
-                dataScaleX = -dataScaleX;
-                cropper.scaleX(dataScaleX);
+                dataScaleX = -scaleX;
+                cropper.scaleX(scaleX);
                 break;
             case 32:
                 e.preventDefault();
@@ -313,6 +314,7 @@ window.onload = function () {
         inputImage.onchange = function () {
             var files = this.files;
             var file;
+            arrayUncroppedImages = []
             //var file;
 
             if (cropper && files && files.length) {
@@ -366,6 +368,7 @@ window.onload = function () {
         let file;
 
         for (file of arrayCroppedImages) { 
+            console.log(file.name)
             zip.file(file.name, file.file)
         }
 
