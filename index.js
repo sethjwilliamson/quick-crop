@@ -17,26 +17,25 @@ window.onload = function () {
     var dataRotate = document.getElementById('dataRotate');
     var dataScaleX = document.getElementById('dataScaleX');
 
-    console.log(document.getElementById('aspect1'));
     var options = {
         aspectRatio: document.getElementById('aspect1').value / document.getElementById('aspect2').value,
         preview: '.img-preview',
         ready: function (e) {
-            console.log(e.type);
+            //console.log(e.type);
         },
         cropstart: function (e) {
-            console.log(e.type, e.detail.action);
+            //console.log(e.type, e.detail.action);
         },
         cropmove: function (e) {
-            console.log(e.type, e.detail.action);
+            //console.log(e.type, e.detail.action);
         },
         cropend: function (e) {
-            console.log(e.type, e.detail.action);
+            //console.log(e.type, e.detail.action);
         },
         crop: function (e) {
             var data = e.detail;
 
-            console.log(e.type);
+            //console.log(e.type);
             dataX.value = Math.round(data.x);
             dataY.value = Math.round(data.y);
             dataHeight.value = Math.round(data.height);
@@ -46,7 +45,7 @@ window.onload = function () {
             dataScaleY.value = typeof data.scaleY !== 'undefined' ? data.scaleY : '';
         },
         zoom: function (e) {
-            console.log(e.type, e.detail.ratio);
+            //console.log(e.type, e.detail.ratio);
         }
     };
     var cropper = new Cropper(image, options);
@@ -104,13 +103,12 @@ window.onload = function () {
                 canvasData = cropper.getCanvasData();
 
                 options.ready = function () {
-                    console.log('ready');
                     cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
                 };
             } else {
                 options[target.name] = target.value;
                 options.ready = function () {
-                    console.log('ready');
+                    
                 };
             }
 
@@ -193,7 +191,7 @@ window.onload = function () {
                     break;
 
                 case 'download':
-                    return download();
+                    //return download();
             }
 
             if (data.method == "setAspectRatio") {
@@ -227,10 +225,10 @@ window.onload = function () {
 
                 case 'getCroppedCanvas':
                     if (result) {
-                        console.log(typeof(result))
-                        arrayCroppedImages.push({"file": result.toDataURL(uploadedImageType), "name": fileName});
+                        let newFileName = fileName.split('-')[0].split('.')[0] + ".png"
+                        
+                        arrayCroppedImages.push({"file": result.toDataURL(), "name": newFileName});
 
-                        console.log(result)
                         //options.width = result.width
                         //options.height = result.height
                         options.data=cropper.getData();
@@ -279,11 +277,13 @@ window.onload = function () {
                 break;
             case 32:
                 e.preventDefault();
-                nextImage();
+                //nextImage();
+                document.getElementById("next-image").click()
                 break;
             case 13:
                 e.preventDefault();
-                nextImage();
+                //nextImage();
+                document.getElementById("next-image").click()
                 break;
             case 37:
                 e.preventDefault();
@@ -315,6 +315,7 @@ window.onload = function () {
             var files = this.files;
             var file;
             arrayUncroppedImages = []
+            arrayCroppedImages = []
             //var file;
 
             if (cropper && files && files.length) {
@@ -353,29 +354,44 @@ window.onload = function () {
         
             fileName = file.name;
             image.src = uploadedImageURL = URL.createObjectURL(file);
-            console.log(uploadedImageURL)
+
             cropper.destroy();
-            console.log(options);
+
             cropper = new Cropper(image, options);
         }
         else {
             //download.href = arrayCroppedImages[0];
             download();            
         }
+
+        if (arrayCroppedImages.length % 5 == 0 && arrayCroppedImages.length != 0) {
+            download()
+        }
     }
     function download() {
         let zip = new JSZip();
-        let file;
 
-        for (file of arrayCroppedImages) { 
-            console.log(file.name)
-            zip.file(file.name, file.file)
+        let zipName = "Cropped " + arrayCroppedImages[0].name + ".zip"
+
+        for (let file of arrayCroppedImages) { 
+            zip.file(file.name, file.file.split('base64,')[1], {base64: true})
         }
 
+        console.log(zip)
 
-        zip.generateAsync({type: "blob"}).then(function(content) {
-            saveAs(content, "download.zip");
-        });
+        zip.generateAsync(
+            {
+                type: "blob",
+                compressionOptions: {
+                    level: 2
+                }
+            }).then(
+            function(content) {
+                saveAs(content, zipName);
+            }
+        );
+
+        arrayCroppedImages.splice(0)
     }
 };
 
