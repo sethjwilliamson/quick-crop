@@ -1,0 +1,26 @@
+{
+  "name": "quick-crop",
+  "version": "1.0.0",
+  "description": "Quickly Crop Images",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^6.3.0",
+    "http-server": "^13.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run open",
+    "open": "concurrently \"http-server -a localhost -p 1234\" \"open http://localhost:1234/build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sethjwilliamson/quick-crop.git"
+  },
+  "author": "Seth Williamson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sethjwilliamson/quick-crop/issues"
+  },
+  "homepage": "https://github.com/sethjwilliamson/quick-crop#readme"
+}
