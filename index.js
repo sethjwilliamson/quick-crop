@@ -226,7 +226,7 @@ window.onload = function () {
                 case 'getCroppedCanvas':
                     if (result) {
                         let newFileName = fileName.split('-')[0].split('.')[0] + ".png"
-                        
+
                         arrayCroppedImages.push({"file": result.toDataURL(), "name": newFileName});
 
                         //options.width = result.width
@@ -269,11 +269,12 @@ window.onload = function () {
         }
 
         switch (e.keyCode) {
-            case 70:
+            case 82:
+                document.getElementById("cropper-scale-x").click()
                 e.preventDefault();
-                console.log(cropper)
-                dataScaleX = -scaleX;
-                cropper.scaleX(scaleX);
+                //console.log(cropper)
+                //dataScaleX = -scaleX;
+                //cropper.scaleX(scaleX);
                 break;
             case 32:
                 e.preventDefault();
@@ -355,6 +356,15 @@ window.onload = function () {
             fileName = file.name;
             image.src = uploadedImageURL = URL.createObjectURL(file);
 
+            let set = fileName[1]
+            let cardCode = fileName.split('-')[0].split('.')[0]
+
+            let url = "'https://dd.b.pvp.net/2_14_0/set" + set + "/en_us/img/cards/" + cardCode + ".png'"
+
+            console.log(url)
+
+            document.getElementById("card-preview").style.backgroundImage = "url(" + url + ")"
+
             cropper.destroy();
 
             cropper = new Cropper(image, options);
@@ -364,7 +374,7 @@ window.onload = function () {
             download();            
         }
 
-        if (arrayCroppedImages.length % 5 == 0 && arrayCroppedImages.length != 0) {
+        if (arrayCroppedImages.length % 20 == 0 && arrayCroppedImages.length != 0) {
             download()
         }
     }
