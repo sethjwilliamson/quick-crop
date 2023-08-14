@@ -203,6 +203,15 @@ window.onload = function () {
                 else
                     cropper.setAspectRatio(null);
             }
+            else if (data.method == "setAspectRatioIcon") {
+                cropper.setAspectRatio(1);
+                options.aspectRatio = 1;
+            }
+
+            else if (data.method == "setAspectRatioBanner") {
+                cropper.setAspectRatio(21 / 5);
+                options.aspectRatio = 21 / 5;
+            }
             else {
                 result = cropper[data.method](data.option, data.secondOption);
             }
