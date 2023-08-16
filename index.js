@@ -368,7 +368,7 @@ window.onload = function () {
             let set = fileName[1]
             let cardCode = fileName.split('-')[0].split('.')[0]
 
-            let url = "'https://dd.b.pvp.net/2_14_0/set" + set + "/en_us/img/cards/" + cardCode + ".png'"
+            let url = "'https://dd.b.pvp.net/latest/set" + set + "/en_us/img/cards/" + cardCode + ".png'"
 
             console.log(url)
 

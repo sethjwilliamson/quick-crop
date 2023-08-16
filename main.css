@@ -100,6 +100,10 @@
     position: relative;
   }
 
+  .preview-card-container .img-preview {
+    border-radius: unset;
+  }
+
   .img-preview-container {
     margin-left: 108px;
     width: 252px;
@@ -394,6 +398,7 @@
     margin-bottom: .5rem;
     margin-right: .5rem;
     overflow: hidden;
+    border-radius: 100%;
   }
   
   .img-preview > img {
